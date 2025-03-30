@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { 
@@ -73,10 +72,12 @@ const Navbar = () => {
             </Sheet>
             
             <Link to="/" className="flex items-center">
-              <span className="text-culinary-gold font-bold text-xl ml-2">
-                Culinary Finance Hub
-              </span>
-            </Link>
+              <img
+                src="/sebs.png"
+                alt="Sebs Logo"
+                className="h-8 w-auto"
+              />
+            </Link>        
           </div>
 
           {/* Desktop Navigation - Show only first 5 items directly in the navbar */}
