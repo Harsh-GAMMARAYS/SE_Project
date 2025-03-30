@@ -24,7 +24,7 @@ Welcome to the **Seb's**, a comprehensive web application designed to streamline
 
 ## Live Demo
 
-Check out the live application here: [Culinary Financial Hub](https://sebs-liard.vercel.app/)
+Check out the live application here: [Seb's](https://sebs-liard.vercel.app/)
 
 ## Installation
 
