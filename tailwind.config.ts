@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,14 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Custom colors for culinary finance hub
+				culinary: {
+					navy: '#1A365D',   // Deep navy for trust
+					teal: '#2C7A7B',   // Teal for freshness
+					gold: '#C05621',    // Warm gold for culinary accents
+					light: '#F7FAFC',   // Light background
+					gray: '#4A5568'     // Neutral gray
 				}
 			},
 			borderRadius: {
