@@ -1,6 +1,6 @@
-# SE Project - Culinary Financial Hub
+# SE Project - Culinary Financial Hub - **Seb's**
 
-Welcome to the **Culinary Financial Hub**, a comprehensive web application designed to streamline and manage various aspects of a culinary business. This project provides tools for managing finances, inventory, employees, scheduling, and more.
+Welcome to the **Seb's**, a comprehensive web application designed to streamline and manage various aspects of a culinary business. This project provides tools for managing finances, inventory, employees, scheduling, and more.
 
 ## Features
 
@@ -21,6 +21,10 @@ Welcome to the **Culinary Financial Hub**, a comprehensive web application desig
 - **UI Components**: Custom components with reusable design patterns
 - **Icons**: Lucide React
 - **Build Tool**: Vite
+
+## Live Demo
+
+Check out the live application here: [Culinary Financial Hub](https://sebs-liard.vercel.app/)
 
 ## Installation
 
