@@ -14,6 +14,14 @@ import {
   X
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -37,7 +45,39 @@ const Navbar = () => {
     <nav className="bg-culinary-navy text-white shadow-md">
       <div className="container mx-auto px-4">
         <div className="flex justify-between h-16">
-          <div className="flex items-center">
+          <div className="flex items-center space-x-4">
+            {/* Hamburger Menu for Additional Navigation */}
+            <Sheet>
+              <SheetTrigger asChild>
+                <button className="p-2 rounded-md hover:bg-culinary-teal focus:outline-none transition-colors">
+                  <Menu className="h-5 w-5" />
+                </button>
+              </SheetTrigger>
+              <SheetContent side="left" className="bg-culinary-navy text-white border-culinary-teal">
+                <SheetHeader>
+                  <SheetTitle className="text-white">Menu</SheetTitle>
+                  <SheetDescription className="text-gray-300">
+                    Access all sections of the application
+                  </SheetDescription>
+                </SheetHeader>
+                <div className="py-4">
+                  <ul className="space-y-2">
+                    {navItems.map((item) => (
+                      <li key={item.name}>
+                        <Link
+                          to={item.path}
+                          className="flex items-center p-2 rounded-md hover:bg-culinary-teal transition-colors"
+                        >
+                          <item.icon className="h-5 w-5 mr-3" />
+                          <span>{item.name}</span>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </SheetContent>
+            </Sheet>
+            
             <Link to="/" className="flex items-center">
               <span className="text-culinary-gold font-bold text-xl ml-2">
                 Culinary Finance Hub
@@ -45,7 +85,7 @@ const Navbar = () => {
             </Link>
           </div>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation - Show only first 5 items directly in the navbar */}
           <div className="hidden md:flex space-x-1">
             {navItems.slice(0, 5).map((item) => (
               <Link
@@ -57,23 +97,6 @@ const Navbar = () => {
                 {item.name}
               </Link>
             ))}
-            <div className="relative group">
-              <button className="flex items-center px-3 py-2 rounded-md text-sm font-medium hover:bg-culinary-teal transition-colors">
-                More
-              </button>
-              <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white text-culinary-navy hidden group-hover:block z-10">
-                {navItems.slice(5).map((item) => (
-                  <Link
-                    key={item.name}
-                    to={item.path}
-                    className="flex items-center px-4 py-2 text-sm hover:bg-gray-100"
-                  >
-                    <item.icon className="h-4 w-4 mr-2" />
-                    {item.name}
-                  </Link>
-                ))}
-              </div>
-            </div>
           </div>
 
           {/* User Profile */}
