@@ -24,12 +24,6 @@ import {
 } from "@/components/ui/sheet";
 
 const Navbar = () => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
-
   const navItems = [
     { name: "Dashboard", path: "/", icon: Home },
     { name: "Banking", path: "/banking", icon: CreditCard },
@@ -109,37 +103,6 @@ const Navbar = () => {
               </button>
             </div>
           </div>
-
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
-            <button
-              onClick={toggleMobileMenu}
-              className="inline-flex items-center justify-center p-2 rounded-md text-white hover:bg-culinary-teal focus:outline-none"
-            >
-              {isMobileMenuOpen ? (
-                <X className="h-6 w-6" />
-              ) : (
-                <Menu className="h-6 w-6" />
-              )}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile menu */}
-      <div className={cn("md:hidden", isMobileMenuOpen ? "block" : "hidden")}>
-        <div className="px-2 pt-2 pb-3 space-y-1 bg-culinary-navy">
-          {navItems.map((item) => (
-            <Link
-              key={item.name}
-              to={item.path}
-              className="flex items-center px-3 py-2 rounded-md text-sm font-medium hover:bg-culinary-teal"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              <item.icon className="h-4 w-4 mr-2" />
-              {item.name}
-            </Link>
-          ))}
         </div>
       </div>
     </nav>
