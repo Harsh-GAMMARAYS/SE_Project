@@ -181,7 +181,7 @@ const InventoryPage = () => {
       // Compare values based on type
       const result = typeof valueA === 'string' 
         ? (valueA as string).localeCompare(valueB as string) 
-        : (valueA < valueB ? -1 : 1);
+        : Number(valueA) < Number(valueB) ? -1 : 1;
         
       return sortBy.direction === 'asc' ? result : -result;
     });
@@ -256,7 +256,7 @@ const InventoryPage = () => {
   
   // CRUD operations for suppliers
   const handleCreateSupplier = async (data: Omit<Supplier, "id" | "created_at" | "updated_at" | "last_order">) => {
-    const newSupplier = await createSupplier(data);
+    const newSupplier = await createSupplier({...data, last_order: null});
     if (newSupplier) {
       const updatedSuppliers = await fetchSuppliers();
       setSuppliers(updatedSuppliers as Supplier[]);
@@ -267,7 +267,7 @@ const InventoryPage = () => {
   const handleUpdateSupplier = async (data: Omit<Supplier, "id" | "created_at" | "updated_at" | "last_order">) => {
     if (!selectedSupplier) return;
     
-    const updatedSupplier = await updateSupplier(selectedSupplier.id, data);
+    const updatedSupplier = await updateSupplier(selectedSupplier.id, {...data, last_order: selectedSupplier.last_order});
     if (updatedSupplier) {
       const updatedSuppliers = await fetchSuppliers();
       setSuppliers(updatedSuppliers as Supplier[]);
@@ -279,6 +279,7 @@ const InventoryPage = () => {
   const handleCreateOrder = async (data: any) => {
     const orderData = {
       supplier_id: data.supplier_id,
+      order_date: new Date().toISOString(),
       expected_delivery: data.expected_delivery ? new Date(data.expected_delivery).toISOString() : null,
       status: data.status,
       total: data.items.reduce((acc: number, item: any) => acc + item.total_price, 0)

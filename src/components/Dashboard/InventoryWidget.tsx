@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ShoppingCart, AlertCircle } from "lucide-react";
@@ -30,7 +29,7 @@ const InventoryWidget = () => {
         
         // Fetch inventory items
         const items = await fetchInventoryItems();
-        const sortedItems = items.sort((a, b) => {
+        const sortedItems = (items as InventoryItem[]).sort((a, b) => {
           const statusPriority: Record<string, number> = {
             critical: 0,
             low: 1,
@@ -39,7 +38,7 @@ const InventoryWidget = () => {
           return statusPriority[a.status] - statusPriority[b.status];
         }).slice(0, 5);
         
-        setInventoryItems(sortedItems as InventoryItem[]);
+        setInventoryItems(sortedItems);
       } catch (error) {
         console.error("Failed to load inventory data:", error);
       } finally {

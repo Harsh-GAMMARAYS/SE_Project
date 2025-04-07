@@ -8,11 +8,11 @@ export const fetchInventoryItems = async () => {
   try {
     const { data, error } = await supabase
       .from("inventory_items")
-      .select("*, suppliers(name)")
+      .select("*, suppliers:supplier_id(name)")
       .order('name');
     
     if (error) throw error;
-    return data;
+    return data as InventoryItem[];
   } catch (error: any) {
     toast({
       title: "Error fetching inventory",
@@ -27,12 +27,12 @@ export const getInventoryItem = async (id: string) => {
   try {
     const { data, error } = await supabase
       .from("inventory_items")
-      .select("*, suppliers(name)")
+      .select("*, suppliers:supplier_id(name)")
       .eq("id", id)
       .single();
     
     if (error) throw error;
-    return data;
+    return data as InventoryItem;
   } catch (error: any) {
     toast({
       title: "Error fetching item",
@@ -58,7 +58,7 @@ export const createInventoryItem = async (item: Omit<InventoryItem, "id" | "crea
       description: `${item.name} has been added to inventory.`,
     });
     
-    return data;
+    return data as InventoryItem;
   } catch (error: any) {
     toast({
       title: "Error creating item",
@@ -85,7 +85,7 @@ export const updateInventoryItem = async (id: string, item: Partial<InventoryIte
       description: `${item.name || 'Item'} has been updated.`,
     });
     
-    return data;
+    return data as InventoryItem;
   } catch (error: any) {
     toast({
       title: "Error updating item",
@@ -130,7 +130,7 @@ export const fetchSuppliers = async () => {
       .order('name');
     
     if (error) throw error;
-    return data;
+    return data as Supplier[];
   } catch (error: any) {
     toast({
       title: "Error fetching suppliers",
@@ -150,7 +150,7 @@ export const getSupplier = async (id: string) => {
       .single();
     
     if (error) throw error;
-    return data;
+    return data as Supplier;
   } catch (error: any) {
     toast({
       title: "Error fetching supplier",
@@ -176,7 +176,7 @@ export const createSupplier = async (supplier: Omit<Supplier, "id" | "created_at
       description: `${supplier.name} has been added to suppliers.`,
     });
     
-    return data;
+    return data as Supplier;
   } catch (error: any) {
     toast({
       title: "Error adding supplier",
@@ -203,7 +203,7 @@ export const updateSupplier = async (id: string, supplier: Partial<Supplier>) =>
       description: `${supplier.name || 'Supplier'} has been updated.`,
     });
     
-    return data;
+    return data as Supplier;
   } catch (error: any) {
     toast({
       title: "Error updating supplier",
@@ -244,11 +244,11 @@ export const fetchOrders = async () => {
   try {
     const { data, error } = await supabase
       .from("orders")
-      .select(`*, suppliers(name)`)
+      .select(`*, suppliers:supplier_id(name)`)
       .order('order_date', { ascending: false });
     
     if (error) throw error;
-    return data;
+    return data as Order[];
   } catch (error: any) {
     toast({
       title: "Error fetching orders",
@@ -264,7 +264,7 @@ export const getOrderWithItems = async (id: string) => {
     // First fetch the order
     const { data: order, error: orderError } = await supabase
       .from("orders")
-      .select(`*, suppliers(*)`)
+      .select(`*, suppliers:supplier_id(*)`)
       .eq("id", id)
       .single();
     
@@ -273,12 +273,12 @@ export const getOrderWithItems = async (id: string) => {
     // Then fetch the order items with their related inventory items
     const { data: items, error: itemsError } = await supabase
       .from("order_items")
-      .select(`*, inventory_items(*)`)
+      .select(`*, inventory_items:item_id(*)`)
       .eq("order_id", id);
     
     if (itemsError) throw itemsError;
     
-    return { ...order, items };
+    return { ...order, items } as Order;
   } catch (error: any) {
     toast({
       title: "Error fetching order details",
@@ -303,6 +303,10 @@ export const createOrder = async (
     
     if (orderError) throw orderError;
     
+    if (!newOrder) {
+      throw new Error("Failed to create order");
+    }
+    
     // Add order items with the new order id
     const orderItems = items.map(item => ({
       ...item,
@@ -320,7 +324,7 @@ export const createOrder = async (
       description: `Order #${newOrder.id.slice(0, 8)} has been placed.`,
     });
     
-    return newOrder;
+    return newOrder as Order;
   } catch (error: any) {
     toast({
       title: "Error creating order",
@@ -350,7 +354,7 @@ export const updateOrderStatus = async (id: string, status: string) => {
       description: `Order status changed to ${status}.`,
     });
     
-    return data;
+    return data as Order;
   } catch (error: any) {
     toast({
       title: "Error updating order",
@@ -402,17 +406,20 @@ export const fetchInventoryStats = async () => {
     
     if (ordersError) throw ordersError;
     
-    const lowStock = items.filter(item => item.status === "low").length;
-    const criticalStock = items.filter(item => item.status === "critical").length;
-    const normalStock = items.filter(item => item.status === "normal").length;
-    const pendingOrders = orders.length;
+    const itemsArray = items as InventoryItem[];
+    const ordersArray = orders as Order[];
+    
+    const lowStock = itemsArray.filter(item => item.status === "low").length;
+    const criticalStock = itemsArray.filter(item => item.status === "critical").length;
+    const normalStock = itemsArray.filter(item => item.status === "normal").length;
+    const pendingOrders = ordersArray.length;
     
     return {
       lowStock,
       criticalStock,
       normalStock,
       pendingOrders,
-      totalItems: items.length
+      totalItems: itemsArray.length
     };
   } catch (error: any) {
     console.error("Error fetching inventory stats:", error);
