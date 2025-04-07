@@ -9,7 +9,184 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      inventory_items: {
+        Row: {
+          category: string
+          created_at: string
+          current_stock: number
+          id: string
+          last_ordered: string | null
+          min_level: number
+          name: string
+          status: string
+          supplier_id: string | null
+          unit: string
+          unit_price: number
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          current_stock: number
+          id?: string
+          last_ordered?: string | null
+          min_level: number
+          name: string
+          status: string
+          supplier_id?: string | null
+          unit: string
+          unit_price: number
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          current_stock?: number
+          id?: string
+          last_ordered?: string | null
+          min_level?: number
+          name?: string
+          status?: string
+          supplier_id?: string | null
+          unit?: string
+          unit_price?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fk_inventory_supplier"
+            columns: ["supplier_id"]
+            isOneToOne: false
+            referencedRelation: "suppliers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      order_items: {
+        Row: {
+          created_at: string
+          id: string
+          item_id: string
+          order_id: string
+          quantity: number
+          total_price: number
+          unit_price: number
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          item_id: string
+          order_id: string
+          quantity: number
+          total_price: number
+          unit_price: number
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          item_id?: string
+          order_id?: string
+          quantity?: number
+          total_price?: number
+          unit_price?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_items_item_id_fkey"
+            columns: ["item_id"]
+            isOneToOne: false
+            referencedRelation: "inventory_items"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_items_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      orders: {
+        Row: {
+          created_at: string
+          expected_delivery: string | null
+          id: string
+          order_date: string
+          status: string
+          supplier_id: string | null
+          total: number | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          expected_delivery?: string | null
+          id?: string
+          order_date?: string
+          status?: string
+          supplier_id?: string | null
+          total?: number | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          expected_delivery?: string | null
+          id?: string
+          order_date?: string
+          status?: string
+          supplier_id?: string | null
+          total?: number | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "orders_supplier_id_fkey"
+            columns: ["supplier_id"]
+            isOneToOne: false
+            referencedRelation: "suppliers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      suppliers: {
+        Row: {
+          category: string | null
+          contact: string | null
+          created_at: string
+          email: string | null
+          id: string
+          last_order: string | null
+          name: string
+          phone: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          category?: string | null
+          contact?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          last_order?: string | null
+          name: string
+          phone?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string | null
+          contact?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          last_order?: string | null
+          name?: string
+          phone?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
