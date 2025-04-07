@@ -25,9 +25,9 @@ const Finances = () => {
     { name: "Other", value: 3000 },
   ];
 
-  // Colors for pie charts
-  const REVENUE_COLORS = ["#2C7A7B", "#38B2AC", "#4FD1C5", "#81E6D9", "#B2F5EA"];
-  const EXPENSE_COLORS = ["#E53E3E", "#F56565", "#FC8181", "#FEB2B2", "#FED7D7", "#FFF5F5"];
+  // Colors for pie charts - updated to match new theme
+  const REVENUE_COLORS = ["#8174A0", "#9985B5", "#A888B5", "#B8A4C9", "#D5C6E0"];
+  const EXPENSE_COLORS = ["#EFB6C8", "#F2C4D2", "#F5D2DC", "#F8E0E7", "#FBEEF1", "#FFD2A0"];
 
   // Mock data for monthly financial data
   const monthlyFinancialData = [
@@ -115,7 +115,7 @@ const Finances = () => {
               <Calendar className="h-4 w-4 mr-2" />
               Jun 1 - Jun 30, 2023
             </button>
-            <button className="bg-culinary-teal text-white px-4 py-2 rounded-md hover:bg-opacity-90 flex items-center">
+            <button className="bg-culinary-navy text-white px-4 py-2 rounded-md hover:bg-opacity-90 flex items-center">
               <Download className="h-4 w-4 mr-2" />
               Export Reports
             </button>
@@ -171,7 +171,7 @@ const Finances = () => {
                         `$${value.toLocaleString()}`,
                         undefined,
                       ]}
-                      labelStyle={{ color: "#1A365D" }}
+                      labelStyle={{ color: "#8174A0" }}
                       contentStyle={{
                         backgroundColor: "white",
                         borderColor: "#E2E8F0",
@@ -182,19 +182,19 @@ const Finances = () => {
                     <Bar
                       dataKey="revenue"
                       name="Revenue"
-                      fill="#2C7A7B"
+                      fill="#8174A0"
                       radius={[4, 4, 0, 0]}
                     />
                     <Bar
                       dataKey="expenses"
                       name="Expenses"
-                      fill="#F56565"
+                      fill="#EFB6C8"
                       radius={[4, 4, 0, 0]}
                     />
                     <Bar
                       dataKey="profit"
                       name="Net Profit"
-                      fill="#C05621"
+                      fill="#FFD2A0"
                       radius={[4, 4, 0, 0]}
                     />
                   </BarChart>
@@ -206,7 +206,7 @@ const Finances = () => {
               <div className="dashboard-card">
                 <div className="flex justify-between items-center mb-4">
                   <h2 className="card-title">Revenue Breakdown</h2>
-                  <button className="text-sm text-culinary-teal hover:underline flex items-center">
+                  <button className="text-sm text-culinary-navy hover:underline flex items-center">
                     <Filter className="h-3 w-3 mr-1" /> Filter
                   </button>
                 </div>
@@ -246,7 +246,7 @@ const Finances = () => {
               <div className="dashboard-card">
                 <div className="flex justify-between items-center mb-4">
                   <h2 className="card-title">Expense Breakdown</h2>
-                  <button className="text-sm text-culinary-teal hover:underline flex items-center">
+                  <button className="text-sm text-culinary-navy hover:underline flex items-center">
                     <Filter className="h-3 w-3 mr-1" /> Filter
                   </button>
                 </div>

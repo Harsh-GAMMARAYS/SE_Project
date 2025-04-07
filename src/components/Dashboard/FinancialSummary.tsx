@@ -84,7 +84,7 @@ const FinancialSummary = () => {
             />
             <Tooltip 
               formatter={(value) => [`$${value.toLocaleString()}`, undefined]}
-              labelStyle={{ color: "#1A365D" }}
+              labelStyle={{ color: "#8174A0" }}
               contentStyle={{ 
                 backgroundColor: "white", 
                 borderColor: "#E2E8F0",
@@ -95,19 +95,19 @@ const FinancialSummary = () => {
             <Bar 
               dataKey="revenue" 
               name="Revenue" 
-              fill="#2C7A7B" 
+              fill="#8174A0" 
               radius={[4, 4, 0, 0]} 
             />
             <Bar 
               dataKey="expenses" 
               name="Expenses" 
-              fill="#F56565" 
+              fill="#EFB6C8" 
               radius={[4, 4, 0, 0]} 
             />
             <Bar 
               dataKey="profit" 
               name="Net Profit" 
-              fill="#C05621" 
+              fill="#FFD2A0" 
               radius={[4, 4, 0, 0]} 
             />
           </BarChart>
@@ -118,3 +118,4 @@ const FinancialSummary = () => {
 };
 
 export default FinancialSummary;
+
